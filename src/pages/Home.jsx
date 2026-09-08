@@ -1,60 +1,49 @@
-import React, { useEffect } from 'react'
-import { useLocation } from 'react-router'
-import Navbar from '../components/Navbar'
-import HeroSection from '../components/HeroSection'
-import CourierServicesSection from '../components/CourierServicesSection'
-import BankingPartnersSection from '../components/BankingPartnersSection'
-import AboutSection from '../components/AboutSection'
-import StatsSection from '../components/StatsSection'
-import TestimonialsSection from '../components/TestimonialsSection'
-import FAQSection from '../components/FAQSection'
-import Footer from '../components/Footer'
-import ScrollReveal from '../components/ScrollReveal'
+import React from 'react';
+import PageLayout from '../components/PageLayout';
+import Seo from '../components/Seo';
+import HeroSection from '../components/HeroSection';
+import CourierServicesSection from '../components/CourierServicesSection';
+import WhyChooseSection from '../components/WhyChooseSection';
+import LocalDeliveryWorksSection from '../components/LocalDeliveryWorksSection';
+import BusinessCustomersSection from '../components/BusinessCustomersSection';
+import ServiceAreaSection from '../components/ServiceAreaSection';
+import SocialProofSection from '../components/SocialProofSection';
+import FAQSection from '../components/FAQSection';
+import FinalCtaSection from '../components/FinalCtaSection';
+import ScrollReveal from '../components/ScrollReveal';
+import { faqJsonLd, localBusinessJsonLd, SITE } from '../data/site';
 
-const Home = () => {
-  const location = useLocation()
+const Home = () => (
+  <PageLayout>
+    <Seo
+      title={`Parcel pickup and delivery in ${SITE.city}`}
+      description={`Book local parcel pickup and delivery in ${SITE.city}. Get a WhatsApp quotation before you book. For online sellers and SMEs.`}
+      jsonLd={[localBusinessJsonLd(), faqJsonLd()]}
+    />
+    <HeroSection />
+    <ScrollReveal delay={0} direction="up" amount={0.12}>
+      <CourierServicesSection />
+    </ScrollReveal>
+    <ScrollReveal delay={0} direction="up" amount={0.12}>
+      <WhyChooseSection />
+    </ScrollReveal>
+    <ScrollReveal delay={0} direction="up" amount={0.12}>
+      <LocalDeliveryWorksSection />
+    </ScrollReveal>
+    <ScrollReveal delay={0} direction="up" amount={0.12}>
+      <BusinessCustomersSection />
+    </ScrollReveal>
+    <ScrollReveal delay={0} direction="up" amount={0.12}>
+      <ServiceAreaSection />
+    </ScrollReveal>
+    <ScrollReveal delay={0} direction="up" amount={0.12}>
+      <SocialProofSection />
+    </ScrollReveal>
+    <ScrollReveal delay={0} direction="up" amount={0.12}>
+      <FAQSection />
+    </ScrollReveal>
+    <FinalCtaSection />
+  </PageLayout>
+);
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
-
-  useEffect(() => {
-    const hash = location.hash?.slice(1)
-    if (hash) {
-      const el = document.getElementById(hash)
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }
-    }
-  }, [location.pathname, location.hash])
-
-  return (
-    <div>
-      <Navbar />
-      <HeroSection />
-      <ScrollReveal delay={0} direction="up" amount={0.12}>
-        <CourierServicesSection />
-      </ScrollReveal>
-      <ScrollReveal delay={0} direction="up" amount={0.12}>
-        <BankingPartnersSection />
-      </ScrollReveal>
-      <ScrollReveal delay={0} direction="up" amount={0.12}>
-        <AboutSection />
-      </ScrollReveal>
-      <ScrollReveal delay={0} direction="up" amount={0.12}>
-        <StatsSection />
-      </ScrollReveal>
-      <ScrollReveal delay={0} direction="up" amount={0.12}>
-        <TestimonialsSection />
-      </ScrollReveal>
-      <ScrollReveal delay={0} direction="up" amount={0.12}>
-        <FAQSection />
-      </ScrollReveal>
-      <ScrollReveal delay={0} direction="up" amount={0.1}>
-        <Footer />
-      </ScrollReveal>
-    </div>
-  )
-}
-
-export default Home
+export default Home;

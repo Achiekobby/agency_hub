@@ -8,28 +8,28 @@ const STATS = [
     value: '10,000+',
     label: 'Packages Delivered',
     icon: Package,
-    color: 'from-blue-500 to-cyan-500',
+    color: 'from-brand_teal to-brand_cyan',
   },
   {
     id: 2,
     value: '5,000+',
     label: 'Happy Customers',
     icon: Users,
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-brand_orange to-brand_cyan',
   },
   {
     id: 3,
     value: '24/7',
     label: 'Customer Support',
     icon: Clock,
-    color: 'from-green-500 to-emerald-500',
+    color: 'from-brand_navy to-brand_teal',
   },
   {
     id: 4,
     value: '100%',
     label: 'Secure & Licensed',
     icon: Shield,
-    color: 'from-amber-500 to-orange-500',
+    color: 'from-brand_cyan to-brand_orange',
   },
 ];
 
@@ -62,7 +62,7 @@ const TRUST_BADGES = [
 
 const StatsSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-brand_navy via-brand_navy/95 to-[#001B2E] py-16 sm:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-gradient-to-br from-brand_navy via-brand_navy/95 to-brand_navy-800 py-16 sm:py-20 lg:py-24">
       {/* Background elements */}
       <div className="absolute inset-0">
         {/* Animated orbs */}
@@ -72,7 +72,7 @@ const StatsSection = () => {
             opacity: [0.2, 0.3, 0.2],
           }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-gradient-to-br from-cyan-400/20 to-blue-500/20 blur-3xl"
+          className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-gradient-to-br from-brand_cyan/20 to-brand_teal/20 blur-3xl"
         />
         <motion.div
           animate={{
@@ -80,7 +80,7 @@ const StatsSection = () => {
             opacity: [0.15, 0.25, 0.15],
           }}
           transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-          className="absolute -right-32 bottom-1/4 h-80 w-80 rounded-full bg-gradient-to-tl from-purple-400/20 to-pink-400/20 blur-3xl"
+          className="absolute -right-32 bottom-1/4 h-80 w-80 rounded-full bg-gradient-to-tl from-brand_orange/20 to-brand_cyan/20 blur-3xl"
         />
         
         {/* Subtle pattern */}

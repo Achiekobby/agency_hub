@@ -45,7 +45,7 @@ const FEATURES = [
 
 const AboutSection = () => {
   return (
-    <section id="about" className="relative overflow-hidden bg-gradient-to-br from-slate-100 via-blue-50/40 to-indigo-50/30 py-20 sm:py-24 lg:py-28">
+    <section id="about" className="relative overflow-hidden bg-gradient-to-br from-slate-100 via-brand_cyan/5 to-brand_teal/10 py-20 sm:py-24 lg:py-28">
       {/* Background orbs and decorative elements */}
       <div className="absolute inset-0">
         {/* Large gradient orbs */}
@@ -55,7 +55,7 @@ const AboutSection = () => {
             opacity: [0.3, 0.5, 0.3],
           }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-gradient-to-br from-[#2B4C9D]/20 via-smart_blue/15 to-transparent blur-3xl"
+          className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-gradient-to-br from-brand_teal/20 via-smart_blue/15 to-transparent blur-3xl"
         />
         <motion.div
           animate={{
@@ -63,7 +63,7 @@ const AboutSection = () => {
             opacity: [0.2, 0.4, 0.2],
           }}
           transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-          className="absolute -bottom-32 -right-32 h-[500px] w-[500px] rounded-full bg-gradient-to-tl from-indigo-400/20 via-purple-300/15 to-transparent blur-3xl"
+          className="absolute -bottom-32 -right-32 h-[500px] w-[500px] rounded-full bg-gradient-to-tl from-brand_cyan/20 via-brand_teal/15 to-transparent blur-3xl"
         />
         <motion.div
           animate={{
@@ -71,12 +71,12 @@ const AboutSection = () => {
             opacity: [0.25, 0.35, 0.25],
           }}
           transition={{ duration: 9, repeat: Infinity, delay: 2 }}
-          className="absolute top-1/3 right-1/4 h-64 w-64 rounded-full bg-gradient-to-br from-cyan-300/20 to-blue-400/15 blur-3xl"
+          className="absolute top-1/3 right-1/4 h-64 w-64 rounded-full bg-gradient-to-br from-brand_cyan/20 to-brand_teal/15 blur-3xl"
         />
         
         {/* Subtle curved overlay */}
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2B4C9D]/30 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-indigo-400/30 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand_teal/30 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-brand_cyan/30 to-transparent" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
@@ -97,7 +97,7 @@ const AboutSection = () => {
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/60 via-blue-50/50 to-indigo-100/40 backdrop-blur-sm shadow-xl shadow-blue-200/30"
+                  className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/60 via-brand_cyan/10 to-brand_teal/15 backdrop-blur-sm shadow-xl shadow-brand_navy/10"
                 />
                 {/* Decorative ring */}
                 <motion.div
@@ -139,27 +139,27 @@ const AboutSection = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.7 }}
-                  className="absolute right-8 top-12 rounded-full bg-white p-4 shadow-lg ring-1 ring-green-100"
+                  className="absolute right-8 top-12 rounded-full bg-white p-4 shadow-lg ring-1 ring-brand_teal/20"
                 >
-                  <BadgeCheck className="h-8 w-8 text-green-600" />
+                  <BadgeCheck className="h-8 w-8 text-brand_teal" />
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.8 }}
-                  className="absolute bottom-16 left-8 rounded-full bg-white p-4 shadow-lg ring-1 ring-red-100"
+                  className="absolute bottom-16 left-8 rounded-full bg-white p-4 shadow-lg ring-1 ring-brand_orange/20"
                 >
-                  <MapPin className="h-8 w-8 text-red-500" />
+                  <MapPin className="h-8 w-8 text-brand_orange" />
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.9 }}
-                  className="absolute right-12 bottom-20 rounded-full bg-white p-4 shadow-lg ring-1 ring-amber-100"
+                  className="absolute right-12 bottom-20 rounded-full bg-white p-4 shadow-lg ring-1 ring-brand_cyan/20"
                 >
-                  <Zap className="h-8 w-8 text-amber-500" />
+                  <Zap className="h-8 w-8 text-brand_cyan" />
                 </motion.div>
               </div>
             </div>
@@ -210,7 +210,7 @@ const AboutSection = () => {
                 transition={{ duration: 0.4, delay: 0.4 }}
                 className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 shadow-md ring-1 ring-slate-200/60"
               >
-                <ShieldCheck className="h-5 w-5 text-green-600" />
+                <ShieldCheck className="h-5 w-5 text-brand_teal" />
                 <span className="text-sm font-medium text-prussian_blue">Certified agent</span>
               </motion.div>
             </div>
@@ -231,7 +231,7 @@ const AboutSection = () => {
               <motion.div
                 whileHover={{ y: -6, scale: 1.02 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-                className={`flex h-full flex-col rounded-2xl border bg-white/90 backdrop-blur-sm p-8 shadow-lg shadow-blue-200/30 transition-all duration-300 hover:shadow-xl hover:shadow-blue-300/40 ${feature.border}`}
+                className={`flex h-full flex-col rounded-2xl border bg-white/90 backdrop-blur-sm p-8 shadow-lg shadow-brand_navy/10 transition-all duration-300 hover:shadow-xl hover:shadow-brand_teal/20 ${feature.border}`}
               >
                 <div
                   className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl ${feature.bg} ${feature.color} ring-1 ring-slate-200/40`}

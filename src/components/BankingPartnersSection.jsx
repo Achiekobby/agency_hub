@@ -10,28 +10,28 @@ const BANKS = [
     name: 'Access Bank',
     services: ['Deposits', 'Withdrawals', 'Account support'],
     logo: Images.access_logo,
-    accent: 'from-red-600 to-rose-600',
+    accent: 'from-brand_navy to-brand_teal',
   },
   {
     id: 'fidelity',
     name: 'Fidelity Bank',
     services: ['Cash handling', 'Transfers', 'Mobile money'],
     logo: Images.fidelity_logo,
-    accent: 'from-amber-500 to-orange-600',
+    accent: 'from-brand_orange to-brand_cyan',
   },
   {
     id: 'absa',
     name: 'Absa Bank',
     services: ['Secure & convenient transactions'],
     logo: Images.absa_logo,
-    accent: 'from-red-600 to-red-800',
+    accent: 'from-brand_teal to-brand_navy',
   },
   {
     id: 'ecobank',
     name: 'Ecobank',
     services: ['Bill payments', 'Airtime top-up & more'],
     logo: Images.ecobank_logo,
-    accent: 'from-green-600 to-emerald-700',
+    accent: 'from-brand_cyan to-brand_teal',
   },
 ];
 
@@ -43,7 +43,7 @@ const BankingPartnersSection = () => {
       <div
         className="absolute inset-0 opacity-[0.05]"
         style={{
-          backgroundImage: 'linear-gradient(#023e7d 1px, transparent 1px), linear-gradient(90deg, #023e7d 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(#003B5C 1px, transparent 1px), linear-gradient(90deg, #003B5C 1px, transparent 1px)',
           backgroundSize: '56px 56px',
         }}
       />

@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-input[type="text"]:focus{
-  outline: none !important;
-  border: none !important;
-}
 
 /* Instrument Sans - from admin_fe/src/fonts/ */
 @font-face {
@@ -64,6 +60,10 @@ input[type="text"]:focus{
   font-style: italic;
 }
 
+html {
+  scroll-padding-top: 3.5rem;
+}
+
 body {
   font-family: "Instrument Sans", sans-serif;
   margin: 0;
@@ -78,13 +78,13 @@ body {
 
 .react-tel-input .form-control:focus {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255,108,108,0.2);
-  border-color: #FF6C6C;
+  box-shadow: 0 4px 12px rgba(11, 169, 193, 0.25);
+  border-color: #0BA9C1;
 }
 
 .react-tel-input .selected-flag:hover,
 .react-tel-input .selected-flag:focus {
-  background-color: rgba(255,108,108,0.1);
+  background-color: rgba(7, 150, 178, 0.1);
 }
 
 .react-tel-input .country-list {
@@ -94,20 +94,34 @@ body {
 }
 
 .react-tel-input .country-list .country:hover {
-  background-color: rgba(255,108,108,0.1);
+  background-color: rgba(7, 150, 178, 0.1);
 }
 
 .react-tel-input .country-list .country.highlight {
-  background-color: rgba(255,108,108,0.2);
+  background-color: rgba(11, 169, 193, 0.2);
 }
 
 /* Toast Container Custom Styling */
 :root {
+  --color-primary: #003B5C;
+  --color-on-primary: #FFFFFF;
+  --color-secondary: #0796B2;
+  --color-on-secondary: #FFFFFF;
+  --color-accent: #F36C21;
+  --color-on-accent: #FFFFFF;
+  --color-highlight: #0BA9C1;
+  --color-background: #FFFFFF;
+  --color-foreground: #003B5C;
+  --color-muted: #E8F6F8;
+  --color-muted-foreground: #5C6773;
+  --color-border: #99D7E3;
+  --color-ring: #0BA9C1;
+
   --toastify-color-light: #ffffff;
-  --toastify-color-success: #10B981;
-  --toastify-color-error: #EF4444;
-  --toastify-color-warning: #F59E0B;
-  --toastify-color-info: #3B82F6;
+  --toastify-color-success: #0796B2;
+  --toastify-color-error: #C3561A;
+  --toastify-color-warning: #F36C21;
+  --toastify-color-info: #0BA9C1;
   
   --toastify-icon-color-success: var(--toastify-color-success);
   --toastify-icon-color-error: var(--toastify-color-error);
@@ -116,7 +130,7 @@ body {
 
   --toastify-toast-width: 400px;
   --toastify-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
-  --toastify-text-color-light: #374151;
+  --toastify-text-color-light: #003B5C;
 }
 
 /* Custom styling for toast container */
@@ -134,26 +148,26 @@ body {
 
 /* Success toast */
 .Toastify__toast--success {
-  background: #ECFDF5;
-  border: 1px solid #A7F3D0;
+  background: #E6F5F8;
+  border: 1px solid #99D7E3;
 }
 
 /* Error toast */
 .Toastify__toast--error {
-  background: #FEF2F2;
-  border: 1px solid #FECACA;
+  background: #FEF3EC;
+  border: 1px solid #FBC9A9;
 }
 
 /* Warning toast */
 .Toastify__toast--warning {
-  background: #FFFBEB;
-  border: 1px solid #FDE68A;
+  background: #FEF3EC;
+  border: 1px solid #F8A774;
 }
 
 /* Info toast */
 .Toastify__toast--info {
-  background: #EFF6FF;
-  border: 1px solid #BFDBFE;
+  background: #E7F7FA;
+  border: 1px solid #9FDFEB;
 }
 
 /* Toast body text */
@@ -180,7 +194,7 @@ body {
 
 .overflow-y-auto {
   scrollbar-width: thin;
-  scrollbar-color: #FF6C6C transparent;
+  scrollbar-color: #0796B2 transparent;
 }
 
 .overflow-y-auto::-webkit-scrollbar {
@@ -192,7 +206,7 @@ body {
 }
 
 .overflow-y-auto::-webkit-scrollbar-thumb {
-  background-color: #FF6C6C;
+  background-color: #0796B2;
   border-radius: 20px;
   border: transparent;
 }
@@ -202,7 +216,7 @@ textarea:not(.MuiOutlinedInput-input):focus,
 select:not(.MuiSelect-select):focus {
   outline: none;
   border-color: transparent;
-  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 0 2px rgba(11, 169, 193, 0.45);
 }
 
 input[type="number"]::-webkit-inner-spin-button,

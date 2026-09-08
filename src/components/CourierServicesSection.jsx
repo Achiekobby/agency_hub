@@ -1,171 +1,192 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router';
-import { motion } from 'framer-motion';
-import { Package, ArrowRight, Globe, Clock, Truck } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import Images from '../Images';
+import { SITE } from '../data/site';
 
 const SERVICES = [
   {
-    id: 'dhl',
-    title: 'DHL Express',
-    description:
-      'International & domestic express delivery, document & parcel services. Fast, reliable, trackable.',
-    logo: Images.dhl_logo,
-    features: ['Express worldwide', 'Documents & parcels', 'Real-time tracking'],
-    accent: 'from-amber-400 to-red-500',
-    accentBg: 'from-amber-400/10 to-red-500/10',
-    icon: Globe,
+    id: 'local',
+    kicker: '01  Local',
+    title: 'Send a parcel locally',
+    body: `Request pickup or bring your parcel to our ${SITE.city} service point. We confirm the price, timing and service area before booking.`,
+    cta: 'Local delivery in Accra',
+    to: '/local-delivery',
+    image: Images.serviceLocal,
+    alt: 'Illustration of a local Accra parcel pickup at a neighbourhood service point.',
+    accent: 'orange',
+    fallback: 'local',
   },
   {
-    id: 'fedex',
-    title: 'FedEx Services',
-    description:
-      'Priority overnight, economy options, freight. Global network with time-definite delivery.',
-    logo: Images.fedex_logo,
-    features: ['Overnight & economy', 'Freight solutions', 'Time-definite delivery'],
-    accent: 'from-indigo-500 to-orange-400',
-    accentBg: 'from-indigo-500/10 to-orange-400/10',
-    icon: Clock,
+    id: 'business',
+    kicker: '02  Business',
+    title: 'Delivery for your business',
+    body: 'Arrange recurring pickups for online orders, documents and customer deliveries. Request a rate sheet based on the areas you serve most often.',
+    cta: 'Business rate sheets',
+    to: '/business-delivery',
+    image: Images.serviceBusiness,
+    alt: 'Illustration of recurring business pickups with labelled parcels on a shop counter.',
+    accent: 'orange',
+    fallback: 'business',
+  },
+  {
+    id: 'international',
+    kicker: '03  International',
+    title: 'Ship internationally',
+    body: 'We help customers prepare and arrange eligible international shipments through approved carrier channels. Eligibility is checked before you send.',
+    cta: 'International shipping',
+    to: '/international-shipping',
+    image: Images.serviceInternational,
+    alt: 'Illustration of an international parcel being prepared with documents, with no carrier branding.',
+    accent: 'navy',
+    fallback: 'international',
+  },
+  {
+    id: 'banking',
+    kicker: '04  Banking',
+    title: 'Agency banking',
+    body: 'The principal, agent number and authorised transactions are published only when they can be verified. Call before travelling. We are not a bank.',
+    cta: 'How to verify this outlet',
+    to: '/agency-banking',
+    image: Images.serviceBanking,
+    alt: 'Illustration of a calm agency-banking counter with an identification check, no bank logos.',
+    accent: 'teal',
+    fallback: 'banking',
   },
 ];
 
-const CourierServicesSection = () => {
+const ctaClass = {
+  orange:
+    'bg-brand_orange text-white hover:bg-brand_orange-600',
+  navy: 'bg-brand_navy text-white hover:bg-brand_navy-600',
+  teal: 'bg-brand_teal text-white hover:bg-brand_teal-600',
+};
+
+function ArtFallback({ type }) {
+  const scenes = {
+    local: (
+      <>
+        <div className="absolute inset-0 bg-gradient-to-br from-brand_cream to-white" />
+        <div className="absolute left-6 top-8 h-16 w-28 rounded-md bg-brand_orange" />
+        <div className="absolute left-10 top-14 h-10 w-16 rounded-sm bg-brand_navy" />
+        <div className="absolute bottom-8 right-8 h-20 w-24 rounded-lg bg-brand_teal/30" />
+        <div className="absolute bottom-10 right-12 h-8 w-14 rounded-sm bg-white" />
+      </>
+    ),
+    business: (
+      <>
+        <div className="absolute inset-0 bg-gradient-to-br from-white to-brand_cream" />
+        <div className="absolute left-8 top-10 h-24 w-16 bg-brand_navy/90" />
+        <div className="absolute left-14 top-14 h-24 w-16 bg-brand_orange" />
+        <div className="absolute left-20 top-16 h-24 w-16 bg-brand_cyan/80" />
+        <div className="absolute right-8 bottom-8 h-14 w-20 rounded-sm bg-brand_teal/25" />
+      </>
+    ),
+    international: (
+      <>
+        <div className="absolute inset-0 bg-gradient-to-br from-brand_navy to-brand_navy-700" />
+        <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full border-[6px] border-brand_cyan/70" />
+        <div className="absolute right-10 top-10 h-3 w-20 rotate-12 bg-brand_orange" />
+        <div className="absolute bottom-12 left-10 h-12 w-16 rounded-sm bg-white/15" />
+      </>
+    ),
+    banking: (
+      <>
+        <div className="absolute inset-0 bg-gradient-to-br from-brand_cream to-brand_teal/15" />
+        <div className="absolute inset-x-10 top-8 h-16 rounded-t-lg bg-brand_navy" />
+        <div className="absolute inset-x-16 top-16 h-20 bg-white" />
+        <div className="absolute bottom-8 left-10 h-10 w-16 rounded-sm bg-brand_teal" />
+        <div className="absolute bottom-8 right-10 h-10 w-14 rounded-sm bg-brand_orange/80" />
+      </>
+    ),
+  };
+
   return (
-    <section id="courier-services" className="relative overflow-hidden bg-slate-50 py-20 sm:py-24 lg:py-28">
-      {/* Background: subtle gradient + grid */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50/80 to-slate-100/60" />
-      <div
-        className="absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage: 'linear-gradient(#1e3a7d 1px, transparent 1px), linear-gradient(90deg, #1e3a7d 1px, transparent 1px)',
-          backgroundSize: '64px 64px',
-        }}
-      />
-      {/* Soft orbs for depth */}
-      <div className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-gradient-to-br from-brand_orange/8 to-transparent blur-3xl" />
-      <div className="absolute -right-32 bottom-1/4 h-80 w-80 rounded-full bg-gradient-to-bl from-brand_gold/8 to-transparent blur-3xl" />
+    <div className="relative aspect-[4/3] overflow-hidden" aria-hidden="true">
+      {scenes[type]}
+    </div>
+  );
+}
 
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+function ServiceArt({ src, alt, fallback }) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) return <ArtFallback type={fallback} />;
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      width={1200}
+      height={900}
+      className="aspect-[4/3] w-full object-cover"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
+function ServiceCard({ service, index, reduceMotion }) {
+  return (
+    <motion.article
+      initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: reduceMotion ? 0 : 0.45, delay: reduceMotion ? 0 : index * 0.08 }}
+      className="flex h-full flex-col overflow-hidden rounded-2xl border border-brand_teal/20 bg-white shadow-sm transition-shadow duration-200 hover:shadow-md"
+    >
+      <ServiceArt src={service.image} alt={service.alt} fallback={service.fallback} />
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
+        <p className="text-xs font-semibold uppercase tracking-wider text-brand_teal">
+          {service.kicker}
+        </p>
+        <h3 className="mt-2 text-xl font-bold tracking-tight text-brand_navy sm:text-2xl">
+          {service.title}
+        </h3>
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-slate_grey sm:text-base">
+          {service.body}
+        </p>
+        <Link
+          to={service.to}
+          className={`mt-6 inline-flex min-h-11 w-fit cursor-pointer items-center gap-2 rounded-lg px-4 text-sm font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand_cyan focus-visible:ring-offset-2 ${ctaClass[service.accent]}`}
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand_orange/20 bg-white/80 px-4 py-2 text-sm font-semibold text-brand_navy shadow-sm backdrop-blur-sm"
-          >
-            <Package className="h-4 w-4 text-brand_orange" />
-            <span>What we offer</span>
-          </motion.div>
-          <h2 className="text-3xl font-bold tracking-tight text-brand_navy sm:text-4xl lg:text-5xl">
-            Courier & Logistics Services
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-slate_grey">
-            Authorized agent for world-leading courier brands. Ship and track with confidence.
+          {service.cta}
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+      </div>
+    </motion.article>
+  );
+}
+
+const CourierServicesSection = () => {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <section id="courier-services" className="relative overflow-hidden bg-brand_cream/50 py-20 sm:py-24">
+      <div className="relative mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl">
+          <p className="text-sm font-semibold uppercase tracking-wider text-brand_teal">
+            Services
           </p>
-        </motion.div>
-
-        {/* Service cards */}
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
-          {SERVICES.map((service, index) => (
-            <motion.article
-              key={service.id}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: index * 0.12 }}
-              className="group relative"
-            >
-              <motion.div
-                whileHover={{ y: -8 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-                className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md shadow-slate-200/50 transition-all duration-300 hover:border-slate-300 hover:shadow-xl hover:shadow-slate-300/40"
-              >
-                {/* Accent bar + gradient overlay on header */}
-                <div className={`absolute left-0 right-0 top-0 h-1 bg-gradient-to-r ${service.accent}`} />
-                <div className={`absolute right-0 top-0 h-32 w-48 bg-gradient-to-bl ${service.accentBg} opacity-60`} />
-
-                {/* Card top: logo + icon */}
-                <div className="relative border-b border-slate-100 px-8 pt-8 pb-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-14 w-auto items-center sm:h-16">
-                      <img
-                        src={service.logo}
-                        alt={`${service.title} logo`}
-                        className="max-h-full w-auto object-contain object-left transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className={`rounded-xl bg-gradient-to-br ${service.accentBg} p-3 ring-1 ring-slate-200/50`}>
-                      <service.icon className="h-6 w-6 text-regal_navy" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Card body */}
-                <div className="relative flex flex-1 flex-col px-8 py-6">
-                  <h3 className="mb-3 text-xl font-bold text-brand_navy sm:text-2xl">
-                    {service.title}
-                  </h3>
-                  <p className="mb-6 flex-1 text-slate_grey leading-relaxed">
-                    {service.description}
-                  </p>
-                  <ul className="mb-6 space-y-3">
-                    {service.features.map((feature, i) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, x: -8 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.3, delay: index * 0.12 + i * 0.06 }}
-                        className="flex items-center gap-3 text-sm font-medium text-brand_navy"
-                      >
-                        <span className={`h-2 w-2 shrink-0 rounded-full bg-gradient-to-r ${service.accent}`} />
-                        {feature}
-                      </motion.li>
-                    ))}
-                  </ul>
-                  <Link
-                    to="/contact"
-                    className={`inline-flex w-fit items-center gap-2 rounded-xl bg-gradient-to-r ${service.accent} px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-slate-300/30 transition-all duration-300 hover:opacity-95 hover:shadow-xl group-hover:gap-3`}
-                  >
-                    Learn more
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                  </Link>
-                </div>
-              </motion.div>
-            </motion.article>
-          ))}
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-brand_navy sm:text-4xl">
+            Choose the job you need.
+          </h2>
+          <p className="mt-4 text-lg leading-relaxed text-slate_grey">
+            Price and timing are confirmed before anything is booked. Carrier brands are shown only
+            where we are authorised to display them.
+          </p>
         </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16 flex flex-col items-center justify-center gap-4 text-center"
-        >
-          <p className="text-slate_grey max-w-md text-base">
-            Ready to ship? Get a quote or book a pickup – we’re here to help.
-          </p>
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand_red via-brand_orange to-brand_gold px-8 py-4 font-semibold text-white shadow-lg shadow-brand_orange/25 transition-all hover:shadow-xl hover:shadow-brand_orange/30"
-            >
-              <Truck className="h-5 w-5" />
-              Book a Shipment
-              <ArrowRight className="h-5 w-5" />
-            </Link>
-          </motion.div>
-        </motion.div>
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {SERVICES.map((service, index) => (
+            <ServiceCard
+              key={service.id}
+              service={service}
+              index={index}
+              reduceMotion={reduceMotion}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

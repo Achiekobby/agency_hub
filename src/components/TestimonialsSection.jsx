@@ -10,7 +10,7 @@ const TESTIMONIALS = [
     text: 'AgencyHub has been a game changer for my business. Fast shipping, reliable tracking, and the banking services make everything so convenient in one place.',
     rating: 5,
     initials: 'KA',
-    color: 'from-blue-500 to-cyan-500',
+    color: 'from-brand_teal to-brand_cyan',
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const TESTIMONIALS = [
     text: 'I love how easy it is to track my packages and handle my banking needs. The staff is professional and the service is always fast. Highly recommend!',
     rating: 5,
     initials: 'AT',
-    color: 'from-purple-500 to-pink-500',
+    color: 'from-brand_orange to-brand_cyan',
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const TESTIMONIALS = [
     text: 'Best courier and banking service in Accra! DHL and FedEx packages are handled professionally, and the agency banking makes deposits and withdrawals so easy.',
     rating: 5,
     initials: 'KM',
-    color: 'from-green-500 to-emerald-500',
+    color: 'from-brand_navy to-brand_teal',
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ const TESTIMONIALS = [
     text: 'Reliable, efficient, and trustworthy. I send important documents through them regularly and never have to worry. The real-time tracking gives me peace of mind.',
     rating: 5,
     initials: 'ES',
-    color: 'from-amber-500 to-orange-500',
+    color: 'from-brand_cyan to-brand_orange',
   },
 ];
 
@@ -47,7 +47,7 @@ const TestimonialsSection = () => {
       {/* Background elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-50/30 via-transparent to-slate-50/30" />
       <div className="absolute -left-40 top-1/4 h-80 w-80 rounded-full bg-gradient-to-br from-smart_blue/5 to-transparent blur-3xl" />
-      <div className="absolute -right-40 bottom-1/4 h-72 w-72 rounded-full bg-gradient-to-bl from-indigo-400/5 to-transparent blur-3xl" />
+      <div className="absolute -right-40 bottom-1/4 h-72 w-72 rounded-full bg-gradient-to-bl from-brand_teal/5 to-transparent blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         {/* Header */}
@@ -103,7 +103,7 @@ const TestimonialsSection = () => {
                 {/* Rating */}
                 <div className="mb-3 flex gap-1">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                    <Star key={i} className="h-4 w-4 fill-brand_orange text-brand_orange" />
                   ))}
                 </div>
 

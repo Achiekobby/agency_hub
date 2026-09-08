@@ -1,301 +1,217 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Package, Plane, Building2, ArrowRight, Sparkles, Globe2, Shield, Zap } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import {
+  ArrowRight,
+  Clock,
+  MapPin,
+  MessageCircle,
+  Phone,
+} from 'lucide-react';
+import Images from '../Images';
 
-const HeroSection = () => {
-  const [trackingNumber, setTrackingNumber] = useState('');
-  const [selectedCourier, setSelectedCourier] = useState('');
-  const [isFocused, setIsFocused] = useState(false);
+const BUSINESS = {
+  city: 'Accra',
+  area: 'Accra',
+  address: 'Accra, Greater Accra',
+  hours: 'Mon–Fri 8:00 AM – 6:00 PM',
+  phoneDisplay: '+233 123 456 789',
+  phoneTel: '+233123456789',
+  whatsapp: '233123456789',
+  mapsUrl: 'https://maps.google.com/?q=Accra+Greater+Accra+Ghana',
+};
 
-  const handleTrackPackage = (e) => {
-    e.preventDefault();
-    if (trackingNumber && selectedCourier) {
-      console.log(`Tracking ${trackingNumber} with ${selectedCourier}`);
-    }
-  };
+const QUOTE_MESSAGE = `Hello, I need a delivery quote.
+Pickup area:
+Delivery area:
+Parcel type and approximate size:
+Preferred pickup time:`;
 
-  // Floating animation for decorative elements
-  const floatingAnimation = {
-    y: [0, -20, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  };
+const quoteHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(QUOTE_MESSAGE)}`;
+
+const TRUST_ITEMS = [
+  BUSINESS.address,
+  `Open ${BUSINESS.hours}`,
+  'Quotation before confirmation',
+  'Receipts issued',
+  'Delivery confirmation available',
+];
+
+const STEPS = [
+  {
+    title: 'Send quote details on WhatsApp',
+    body: 'Pickup area, delivery area, parcel size, and a preferred time.',
+  },
+  {
+    title: 'Arrange pickup or drop off',
+    body: `We confirm the quotation, then collect from you or you drop off at our ${BUSINESS.area} service point.`,
+  },
+  {
+    title: 'Receive delivery confirmation',
+    body: 'You get confirmation when the parcel is delivered, with a receipt issued.',
+  },
+];
+
+const fadeUp = (reduceMotion, delay) => ({
+  initial: reduceMotion ? false : { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0 },
+  transition: reduceMotion ? { duration: 0 } : { duration: 0.45, delay, ease: 'easeOut' },
+});
+
+const ctaBase =
+  'inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-lg px-5 text-sm font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand_cyan focus-visible:ring-offset-2';
+
+function HeroPhotograph() {
+  const [failed, setFailed] = useState(false);
 
   return (
-    <section id="tracking" className="relative min-h-screen overflow-hidden bg-gradient-to-br from-brand_navy via-brand_navy/95 to-[#001B2E] pt-6 pb-32">
-      {/* Animated cosmic background */}
-      <div className="absolute inset-0">
-        {/* Animated orbs */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-20 right-10 h-96 w-96 rounded-full bg-gradient-to-br from-brand_orange/30 to-brand_gold/30 blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-          className="absolute bottom-20 left-10 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-brand_red/20 to-brand_orange/20 blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.25, 0.35, 0.25],
-          }}
-          transition={{ duration: 7, repeat: Infinity, delay: 2 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-brand_gold/20 to-brand_cream/15 blur-3xl"
-        />
-        
-        {/* Animated particles */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-1 w-1 rounded-full bg-white"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * 600,
-              opacity: Math.random() * 0.5 + 0.2,
-            }}
-            animate={{
-              y: [null, Math.random() * -100 - 50],
-              opacity: [null, 0],
-            }}
-            transition={{
-              duration: Math.random() * 3 + 2,
-              repeat: Infinity,
-              delay: Math.random() * 3,
-            }}
+    <figure className="relative lg:sticky lg:top-20">
+      <div className="absolute -inset-3 -z-10 rounded-[1.75rem] bg-brand_cream md:-inset-4" />
+      <div className="relative overflow-hidden rounded-2xl bg-brand_navy shadow-lg shadow-brand_navy/15">
+        {failed ? (
+          <div
+            className="relative aspect-[5/4] md:aspect-[4/5]"
+            role="img"
+            aria-label="Service-point photograph coming soon: a staff member at the Accra counter receiving a parcel, late-afternoon light from the street."
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-brand_navy via-brand_navy-600 to-brand_teal-800" />
+            <div className="absolute left-0 top-1/4 h-24 w-16 bg-brand_orange/80 md:h-32 md:w-20" />
+            <div className="absolute left-0 top-[38%] h-16 w-12 bg-brand_orange/50 md:h-20 md:w-16" />
+            <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-white/10" />
+            <div className="absolute right-6 top-8 h-2/5 w-1/3 rounded-sm bg-brand_cyan/25 md:right-10 md:top-12" />
+          </div>
+        ) : (
+          <img
+            src={Images.heroServicePoint}
+            alt="Staff at the Accra service point receiving a parcel at the counter, with the street visible through the open doorway."
+            width={1600}
+            height={2000}
+            className="aspect-[5/4] w-full object-cover object-[center_30%] md:aspect-[4/5]"
+            onError={() => setFailed(true)}
           />
-        ))}
+        )}
       </div>
+    </figure>
+  );
+}
 
-      <div className="relative mx-auto max-w-8xl px-6 sm:px-8 lg:px-12 pt-16">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-          {/* Left Content */}
-          <div className="space-y-8">
-            {/* Animated badge */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="inline-flex"
+function ProcessSteps() {
+  return (
+    <div className="mt-8">
+      <h2 className="text-xs font-semibold uppercase tracking-wider text-brand_teal">
+        How it works
+      </h2>
+      <ol className="mt-4 space-y-5">
+        {STEPS.map((step, index) => (
+          <li key={step.title} className="flex gap-4">
+            <span
+              className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand_orange text-sm font-bold text-white"
+              aria-hidden="true"
             >
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-brand_orange to-brand_gold rounded-full blur-lg opacity-60 group-hover:opacity-100 transition-opacity" />
-                <div className="relative flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-brand_gold/30 rounded-full px-5 py-3 text-sm font-semibold text-white">
-                  <Sparkles className="h-4 w-4 text-brand_gold" />
-                  <span>Ghana's Premier Service Provider</span>
-                </div>
-              </div>
+              {index + 1}
+            </span>
+            <div>
+              <p className="font-semibold text-brand_navy">{step.title}</p>
+              <p className="mt-1 text-sm leading-relaxed text-slate_grey">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+const HeroSection = () => {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <section id="hero" className="relative overflow-hidden bg-white">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-brand_cream/80 to-transparent" />
+
+      <div className="relative mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-start gap-10 py-12 lg:grid-cols-12 lg:gap-14 lg:py-16">
+          <div className="lg:col-span-7">
+            <motion.p
+              {...fadeUp(reduceMotion, 0)}
+              className="text-sm font-semibold uppercase tracking-wider text-brand_teal"
+            >
+              Pickup & delivery
+            </motion.p>
+
+            <motion.h1
+              {...fadeUp(reduceMotion, 0.08)}
+              className="mt-3 text-4xl font-bold tracking-tight text-brand_navy sm:text-5xl lg:text-[3.15rem] lg:leading-[1.12]"
+            >
+              Book parcel pickup and delivery in {BUSINESS.city}.
+            </motion.h1>
+
+            <motion.p
+              {...fadeUp(reduceMotion, 0.16)}
+              className="mt-5 max-w-xl text-lg leading-relaxed text-slate_grey"
+            >
+              Get a clear quotation on WhatsApp, arrange pickup or drop off at our {BUSINESS.area}{' '}
+              service point, and receive confirmation when your parcel is delivered. International
+              shipping is arranged through approved carrier channels. Agency banking is named only
+              when it can be verified.
+            </motion.p>
+
+            <motion.div {...fadeUp(reduceMotion, 0.22)}>
+              <ProcessSteps />
             </motion.div>
 
-            {/* Main Heading with stagger effect */}
-            <div className="space-y-4">
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight"
+            <motion.div {...fadeUp(reduceMotion, 0.3)} className="mt-8">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <a
+                  href={quoteHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${ctaBase} bg-brand_orange text-white hover:bg-brand_orange-600`}
+                >
+                  <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                  Get a delivery quote
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+                <a
+                  href={BUSINESS.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${ctaBase} border-2 border-brand_navy bg-white text-brand_navy hover:bg-brand_cream`}
+                >
+                  <MapPin className="h-4 w-4" aria-hidden="true" />
+                  Get directions
+                </a>
+              </div>
+              <a
+                href={`tel:${BUSINESS.phoneTel}`}
+                className="mt-4 inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm font-semibold text-brand_navy transition-colors duration-200 hover:text-brand_teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand_cyan"
               >
-                Your Trusted Partner for{' '}
-                <span className="relative inline-block">
-                  <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-brand_gold via-brand_orange to-amber-300">
-                    Logistics
-                  </span>
-                  <motion.span
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
-                    className="absolute bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-brand_orange/40 to-brand_gold/40 -z-0"
-                  />
-                </span>
-                {' & '}
-                <span className="relative inline-block">
-                  <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-brand_red via-red-400 to-brand_orange">
-                    Banking
-                  </span>
-                  <motion.span
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.8, delay: 1 }}
-                    className="absolute bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-brand_red/40 to-brand_orange/40 -z-0"
-                  />
-                </span>
-                {' '}in Ghana
-              </motion.h1>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="flex flex-wrap gap-3"
-              >
-                <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-brand_gold/20 rounded-lg px-4 py-2">
-                  <Plane className="h-4 w-4 text-brand_gold" />
-                  <span className="text-sm text-brand_cream font-medium">DHL & FedEx Agent</span>
-                </div>
-                <div className="flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-brand_gold/20 rounded-lg px-4 py-2">
-                  <Building2 className="h-4 w-4 text-brand_orange" />
-                  <span className="text-sm text-brand_cream font-medium">4 Banking Partners</span>
-                </div>
-              </motion.div>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                className="text-xl text-blue-100/80 leading-relaxed max-w-xl"
-              >
-                Agency Banking for <span className="font-semibold text-white">Access Bank, Fidelity Bank, Absa & Ecobank</span>
-              </motion.p>
-            </div>
-
-            {/* Feature highlights */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="grid grid-cols-3 gap-4"
-            >
-              {[
-                { icon: Globe2, label: 'Global Reach', gradient: 'from-brand_orange to-brand_gold', iconColor: 'text-brand_gold' },
-                { icon: Shield, label: 'Secure', gradient: 'from-brand_red to-red-500', iconColor: 'text-brand_red' },
-                { icon: Zap, label: 'Fast Service', gradient: 'from-brand_gold to-amber-400', iconColor: 'text-brand_gold' },
-              ].map((item, idx) => (
-                <div key={idx} className="group">
-                  <div className="relative">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-30 rounded-xl blur-xl transition-opacity`} />
-                    <div className="relative bg-white/5 backdrop-blur-sm border border-brand_gold/20 rounded-xl p-4 hover:bg-white/10 transition-all">
-                      <item.icon className={`h-6 w-6 ${item.iconColor} mb-2`} />
-                      <p className="text-sm font-medium text-white">{item.label}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                <Phone className="h-4 w-4 text-brand_teal" aria-hidden="true" />
+                Call: {BUSINESS.phoneDisplay}
+              </a>
             </motion.div>
           </div>
 
-          {/* Right Side - Tracking Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 50, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative"
-          >
-            {/* Floating decoration */}
-            <motion.div
-              animate={floatingAnimation}
-              className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-full blur-2xl"
-            />
-            <motion.div
-              animate={{ ...floatingAnimation, transition: { ...floatingAnimation.transition, delay: 1 } }}
-              className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-purple-400/20 to-pink-500/20 rounded-full blur-2xl"
-            />
-
-              <div className="relative">
-                {/* Glassmorphism Card */}
-                <div className="relative bg-white/10 backdrop-blur-2xl border border-brand_gold/30 rounded-3xl p-8 shadow-2xl">
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand_orange/10 via-brand_gold/10 to-brand_red/10 rounded-3xl" />
-                
-                <div className="relative space-y-6">
-                  <div className="text-center space-y-2">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-brand_orange to-brand_gold mb-4 shadow-lg shadow-brand_orange/30">
-                      <Package className="h-8 w-8 text-white" />
-                    </div>
-                    <h2 className="text-3xl font-bold text-white">Track Your Package</h2>
-                    <p className="text-brand_cream/70">Real-time tracking at your fingertips</p>
-                  </div>
-
-                  <form onSubmit={handleTrackPackage} className="space-y-4">
-                    {/* Tracking Input */}
-                    <div className="relative group">
-                      <input
-                        type="text"
-                        value={trackingNumber}
-                        onChange={(e) => setTrackingNumber(e.target.value)}
-                        onFocus={() => setIsFocused(true)}
-                        onBlur={() => setIsFocused(false)}
-                        placeholder="Enter Tracking Number"
-                        className="w-full h-14 px-6 text-base text-white placeholder-brand_cream placeholder:font-medium caret-brand_gold bg-white/10 border border-brand_gold/25 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand_gold focus:border-transparent transition-all"
-                      />
-                      <motion.div
-                        animate={{ scale: isFocused ? 1 : 0 }}
-                        className="absolute inset-0 bg-gradient-to-r from-brand_orange/20 to-brand_gold/20 rounded-xl blur-xl -z-10"
-                      />
-                    </div>
-
-                    {/* Courier Selector */}
-                    <div className="grid grid-cols-2 gap-3">
-                      {['DHL', 'FedEx'].map((courier) => (
-                        <button
-                          key={courier}
-                          type="button"
-                          onClick={() => setSelectedCourier(courier)}
-                          className={`relative h-14 rounded-xl font-semibold transition-all ${
-                            selectedCourier === courier
-                              ? 'bg-gradient-to-r from-brand_orange to-brand_gold text-white shadow-lg shadow-brand_orange/30'
-                              : 'bg-white/5 border border-brand_gold/20 text-brand_cream hover:bg-white/10'
-                          }`}
-                        >
-                          {courier}
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Track Button */}
-                    <motion.button
-                      type="submit"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="relative w-full h-14 rounded-xl font-bold text-white overflow-hidden group"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-brand_red via-brand_orange to-brand_gold" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-brand_red/90 via-brand_orange/90 to-brand_gold/90 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <span className="relative flex items-center justify-center gap-2">
-                        Track Now
-                        <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                    </motion.button>
-                  </form>
-
-                  {/* Quick Stats */}
-                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-brand_gold/20">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand_gold to-brand_orange">10K+</div>
-                      <div className="text-xs text-brand_cream/70">Delivered</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand_orange to-brand_red">24/7</div>
-                      <div className="text-xs text-brand_cream/70">Support</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <motion.div {...fadeUp(reduceMotion, 0.12)} className="lg:col-span-5">
+            <HeroPhotograph />
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom decorative wave */}
-      <div className="absolute bottom-0 left-0 right-0 z-10">
-        <svg className="w-full h-24 text-white" preserveAspectRatio="none" viewBox="0 0 1440 100" fill="none">
-          <motion.path
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-            d="M0 50 C240 20, 480 80, 720 50 C960 20, 1200 80, 1440 50 L1440 100 L0 100 Z"
-            fill="currentColor"
-          />
-        </svg>
+      <div className="bg-brand_navy">
+        <div className="mx-auto flex max-w-8xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-4 sm:px-6 lg:px-8">
+          <Clock className="hidden h-4 w-4 text-brand_cyan sm:block" aria-hidden="true" />
+          <ul className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-white">
+            {TRUST_ITEMS.map((item, index) => (
+              <li key={item} className="flex items-center gap-3">
+                {index > 0 && (
+                  <span className="text-brand_cyan/80" aria-hidden="true">
+                    •
+                  </span>
+                )}
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
