@@ -68,13 +68,13 @@ const Navbar = () => {
           <div className="mx-auto flex h-full max-w-8xl items-center justify-between px-4 sm:px-6 lg:px-8">
             <Link
               to="/"
-              className="relative z-10 flex h-11 items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand_cyan"
+              className="relative z-10 flex h-full items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand_cyan"
               onClick={closeMenu}
             >
               <img
                 src={Images.logo}
                 alt="Delivery on Demand"
-                className="h-8 w-auto object-contain"
+                className="h-12 w-auto max-h-full object-contain"
               />
             </Link>
 
