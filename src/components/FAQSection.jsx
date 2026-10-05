@@ -48,36 +48,46 @@ function FaqItem({ item, open, onToggle, reduceMotion }) {
   );
 }
 
-const FAQSection = () => {
-  const [openId, setOpenId] = useState(FAQS[0].id);
+const FAQSection = ({
+  ids,
+  kicker = 'FAQ',
+  title = 'Questions we can answer in writing.',
+  intro,
+}) => {
+  const items = ids ? FAQS.filter((item) => ids.includes(item.id)) : FAQS;
+  const [openId, setOpenId] = useState(items[0]?.id ?? null);
   const reduceMotion = useReducedMotion();
 
   return (
     <section id="faq" className="bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <p className="text-sm font-semibold uppercase tracking-wider text-brand_teal">FAQ</p>
+        <p className="text-sm font-semibold uppercase tracking-wider text-brand_teal">{kicker}</p>
         <h2 className="mt-3 text-3xl font-bold tracking-tight text-brand_navy sm:text-4xl">
-          Questions we can answer in writing.
+          {title}
         </h2>
         <p className="mt-4 text-lg leading-relaxed text-slate_grey">
-          If an answer depends on authorisation we do not yet publish, we say so.{' '}
-          <Link to="/privacy" className="font-semibold text-brand_navy underline-offset-4 hover:underline">
-            Privacy
-          </Link>
-          {' · '}
-          <Link to="/claims" className="font-semibold text-brand_navy underline-offset-4 hover:underline">
-            Claims
-          </Link>
-          {' · '}
-          <Link
-            to="/prohibited-items"
-            className="font-semibold text-brand_navy underline-offset-4 hover:underline"
-          >
-            Prohibited items
-          </Link>
+          {intro || (
+            <>
+              If an answer depends on authorisation we do not yet publish, we say so.{' '}
+              <Link to="/privacy" className="font-semibold text-brand_navy underline-offset-4 hover:underline">
+                Privacy
+              </Link>
+              {' · '}
+              <Link to="/claims" className="font-semibold text-brand_navy underline-offset-4 hover:underline">
+                Claims
+              </Link>
+              {' · '}
+              <Link
+                to="/prohibited-items"
+                className="font-semibold text-brand_navy underline-offset-4 hover:underline"
+              >
+                Prohibited items
+              </Link>
+            </>
+          )}
         </p>
         <div className="mt-10">
-          {FAQS.map((item) => (
+          {items.map((item) => (
             <FaqItem
               key={item.id}
               item={item}

@@ -25,6 +25,10 @@ const Privacy = () => (
           <li>Pickup and delivery addresses — to fulfil the job.</li>
           <li>Parcel description and size — to price and carry the item lawfully.</li>
           <li>Messages you send us — to keep the booking record.</li>
+          <li>
+            Organisation, role and business details on an agency-banking enquiry — to respond to
+            that enquiry. This is not an agent appointment.
+          </li>
         </ul>
       </section>
       <section>

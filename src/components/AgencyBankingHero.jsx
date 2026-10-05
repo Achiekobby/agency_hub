@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, Clock, MapPin, Phone, ShieldOff } from 'lucide-react';
+import { ArrowDown, Building2, MapPin, ShieldOff } from 'lucide-react';
 import Images from '../Images';
 import { CTA, SITE } from '../data/site';
 
 const FACTS = [
-  { icon: ShieldOff, text: 'Not a bank or EMI' },
-  { icon: Phone, text: 'Call before you travel' },
-  { icon: Clock, text: 'ID checked at the outlet only' },
+  { icon: ShieldOff, text: 'Not a bank, EMI or PSP' },
+  { icon: Building2, text: 'Support across the agent lifecycle' },
+  { icon: MapPin, text: 'Principal listing still unpublished' },
 ];
 
 const fadeUp = (reduceMotion, delay) => ({
@@ -40,7 +39,7 @@ function CounterArt() {
       alt="A calm Accra outlet counter with an identification check. No bank logos and no readable ID."
       width={1200}
       height={1500}
-      className="absolute inset-0 h-full w-full object-cover object-[center_28%]"
+      className="absolute inset-0 h-full w-full object-cover object-center"
       onError={() => setFailed(true)}
     />
   );
@@ -72,36 +71,35 @@ function HeroCopy({ reduceMotion }) {
         {...fadeUp(reduceMotion, 0.04)}
         className="mt-4 text-sm font-semibold uppercase tracking-wider text-brand_teal"
       >
-        Agency banking · {SITE.area}
+        Agency banking · Ghana
       </motion.p>
       <motion.h1
         {...fadeUp(reduceMotion, 0.08)}
         className="mt-3 text-4xl font-bold tracking-tight text-brand_navy sm:text-5xl lg:text-[3.05rem] lg:leading-[1.12]"
       >
-        Banking at the outlet — named only when it can be checked.
+        Extend financial services beyond the branch.
       </motion.h1>
       <motion.p
         {...fadeUp(reduceMotion, 0.16)}
-        className="mt-5 max-w-xl text-lg leading-relaxed text-slate_grey"
+        className="mt-5 max-w-2xl text-lg leading-relaxed text-slate_grey"
       >
-        Delivery on Demand is not a bank, EMI or payment-service provider. An agent acts for a
-        principal. We publish that name, agent number and official listing only when they can be
-        verified.
+        Delivery on Demand helps institutions build and run agency banking networks — selection,
+        onboarding, liquidity, compliance, monitoring and performance. We are not the customer’s
+        bank. A named principal is published here only when it can be verified.
       </motion.p>
       <StatusFacts reduceMotion={reduceMotion} />
       <motion.div
         {...fadeUp(reduceMotion, 0.26)}
         className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
       >
-        <a href={`tel:${SITE.phoneTel}`} className={CTA.primary}>
-          <Phone className="h-4 w-4" aria-hidden="true" />
-          Call before you travel
+        <a href="#consultation" className={CTA.primary}>
+          Talk to us
         </a>
-        <Link to="/contact" className={CTA.secondary}>
-          Contact and hours
-        </Link>
+        <a href="#agents" className={CTA.secondary}>
+          For agents and merchants
+        </a>
         <a href="#verification" className={CTA.ghost}>
-          What we will publish
+          Verify an agent
           <ArrowDown className="h-4 w-4" aria-hidden="true" />
         </a>
       </motion.div>
@@ -118,8 +116,8 @@ function HeroCopy({ reduceMotion }) {
 
 function OutletPlate() {
   return (
-    <figure className="relative flex h-full min-h-[22rem] flex-col overflow-hidden rounded-2xl border border-brand_teal/20 bg-brand_navy shadow-lg shadow-brand_navy/10 md:min-h-[26rem] lg:min-h-0">
-      <div className="relative min-h-[18rem] flex-1">
+    <figure className="relative flex flex-col overflow-hidden rounded-2xl border border-brand_teal/20 bg-brand_navy shadow-lg shadow-brand_navy/10">
+      <div className="relative aspect-[4/5]">
         <CounterArt />
         <p className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand_navy">
           Not a bank
@@ -141,17 +139,84 @@ function OutletPlate() {
   );
 }
 
+function HeroPattern() {
+  return (
+    <svg
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      aria-hidden="true"
+    >
+      <defs>
+        <pattern id="agency-hero-dots" width="18" height="18" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r="1" fill="#0796B2" fillOpacity="0.32" />
+        </pattern>
+        <pattern id="agency-hero-grid" width="72" height="72" patternUnits="userSpaceOnUse">
+          <path d="M72 0H0V72" fill="none" stroke="#003B5C" strokeOpacity="0.08" />
+        </pattern>
+        <linearGradient id="agency-hero-wash" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#E8F6F8" stopOpacity="0.92" />
+          <stop offset="0.55" stopColor="#E8F6F8" stopOpacity="0.55" />
+          <stop offset="1" stopColor="#E8F6F8" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#agency-hero-grid)" />
+      <rect width="100%" height="100%" fill="url(#agency-hero-dots)" />
+      <circle
+        cx="88%"
+        cy="16%"
+        r="168"
+        fill="none"
+        stroke="#0796B2"
+        strokeOpacity="0.4"
+        strokeWidth="1.25"
+        strokeDasharray="5 8"
+      />
+      <circle
+        cx="96%"
+        cy="16%"
+        r="108"
+        fill="none"
+        stroke="#0BA9C1"
+        strokeOpacity="0.35"
+        strokeWidth="1"
+        strokeDasharray="3 7"
+      />
+      <circle
+        cx="72%"
+        cy="108%"
+        r="150"
+        fill="none"
+        stroke="#F36C21"
+        strokeOpacity="0.32"
+        strokeWidth="1.25"
+        strokeDasharray="4 8"
+      />
+      <circle
+        cx="6%"
+        cy="92%"
+        r="72"
+        fill="none"
+        stroke="#003B5C"
+        strokeOpacity="0.14"
+        strokeWidth="1"
+        strokeDasharray="3 6"
+      />
+      <rect width="100%" height="100%" fill="url(#agency-hero-wash)" />
+    </svg>
+  );
+}
+
 const AgencyBankingHero = () => {
   const reduceMotion = useReducedMotion();
 
   return (
-    <header className="relative overflow-hidden bg-brand_cream/50">
+    <header className="relative overflow-hidden bg-brand_cream">
+      <HeroPattern />
       <div className="relative mx-auto max-w-8xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid items-stretch gap-8 lg:grid-cols-12 lg:gap-10">
-          <motion.div {...fadeUp(reduceMotion, 0)} className="lg:col-span-6 lg:self-center">
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
+          <motion.div {...fadeUp(reduceMotion, 0)} className="lg:col-span-8">
             <HeroCopy reduceMotion={reduceMotion} />
           </motion.div>
-          <motion.div {...fadeUp(reduceMotion, 0.1)} className="lg:col-span-6">
+          <motion.div {...fadeUp(reduceMotion, 0.1)} className="lg:col-span-4">
             <OutletPlate />
           </motion.div>
         </div>

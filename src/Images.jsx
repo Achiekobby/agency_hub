@@ -12,6 +12,7 @@ const Images = {
   internationalHero: "/images/international-hero.png",
   serviceBanking: "/images/service-banking.png",
   agencyBankingHero: "/images/agency-banking-hero.png",
+  bankingCta: "/images/banking-cta.png",
   coverageHero: "/images/coverage-hero.png",
   contactHero: "/images/contact-hero.png",
 
@@ -23,6 +24,7 @@ const Images = {
   fidelity_logo:"/images/fidelity.png",
   access_logo:"/images/access.png",
   ecobank_logo:"/images/ecobank.png",
+  uba_logo: "/images/uba.png",
 }
 
 export default Images;

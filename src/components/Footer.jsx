@@ -12,9 +12,9 @@ const Footer = () => (
             {SITE.name}
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/75">
-            Local parcel pickup and delivery in {SITE.city} for online sellers and SMEs.
-            International shipping assistance and outlet banking are described only where they can
-            be verified.
+            Parcel pickup and delivery in {SITE.city}, and agency-banking network support for
+            institutions and prospective agents. We are not a bank. Regulated services, where
+            offered, remain with the participating principal.
           </p>
           <ul className="mt-6 space-y-3">
             <li>
@@ -107,8 +107,9 @@ const Footer = () => (
 
       <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-xs text-white/50">
-          © {new Date().getFullYear()} {SITE.name}. Not a bank. Carrier brands are shown only with
-          written authorisation.
+          © {new Date().getFullYear()} {SITE.name}. Banking and payment services through an agency
+          arrangement are provided by the applicable principal and remain subject to its terms.
+          Carrier brands are shown only with written authorisation.
         </p>
         <p className="text-xs text-white/50">
           {SITE.hoursWeekday}. {SITE.hoursSaturday}.

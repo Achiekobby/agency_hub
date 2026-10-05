@@ -36,6 +36,17 @@ Contents:`,
 Pickup area:
 Destination:
 Parcel details:`,
+  bankingConsult: `Hello, I would like to discuss agency banking support.
+Organisation:
+Role:
+Interest:
+Message:`,
+  agentInterest: `Hello, I would like to register interest in becoming an agent.
+Business name:
+Business type:
+Location:
+Years in operation:
+Contact:`,
   contact: `Hello, I would like to get in touch with the Accra outlet.
 What I need:
 Details:`,
@@ -46,7 +57,7 @@ export const localBusinessJsonLd = () => ({
   '@type': 'LocalBusiness',
   name: SITE.name,
   description:
-    'Local parcel pickup and delivery in Accra, with international shipping assistance and outlet services.',
+    'Local parcel pickup and delivery in Accra, with international shipping assistance and agency-banking network support. Delivery on Demand is not a bank.',
   telephone: SITE.phoneDisplay,
   email: SITE.email,
   address: {
@@ -79,7 +90,7 @@ export const NAV_LINKS = [
   { label: 'Local delivery', path: '/local-delivery' },
   { label: 'For business', path: '/business-delivery' },
   { label: 'International', path: '/international-shipping' },
-  { label: 'Banking', path: '/agency-banking' },
+  { label: 'Agency banking', path: '/agency-banking' },
   { label: 'Coverage', path: '/service-area' },
 ];
 
@@ -154,35 +165,120 @@ export const FAQS = [
       'We do not publish DHL Service Point Partner or FedEx agent status on this site. We help customers prepare and arrange eligible international shipments through approved carrier channels. Who contracts with you, who issues the waybill, and who handles claims is confirmed before you send.',
   },
   {
-    id: 'principal',
-    question: 'Which agency-banking provider do you represent?',
+    id: 'what-agency',
+    question: 'What is agency banking?',
     answer:
-      'The principal institution, agent number and official listing will be published here once they can be verified. Delivery on Demand is not itself a bank, EMI or payment-service provider.',
+      'Agency banking is a distribution model through which an appropriately authorised financial institution engages approved third parties to provide specified financial services to customers on its behalf.',
+  },
+  {
+    id: 'is-bank',
+    question: 'Is Delivery on Demand a bank?',
+    answer:
+      'No. Delivery on Demand is not represented here as a bank, specialised deposit-taking institution, electronic money issuer or licensed payment service provider. On this site the role is agency-banking solutions, operations and network support for participating institutions and agent networks.',
+  },
+  {
+    id: 'principal',
+    question: 'Who is the principal in agency banking?',
+    answer:
+      'The principal is the appropriately authorised financial institution responsible for the regulated financial service. That may include an eligible bank, specialised deposit-taking institution, electronic money issuer, payment service provider or other authorised institution. We publish a named principal on this site only when that relationship can be verified.',
+  },
+  {
+    id: 'who-agent',
+    question: 'Who is an agent?',
+    answer:
+      'An agent is an approved third party that provides permitted services to customers on behalf of a principal under an agency arrangement. An agent does not become a bank by joining a network.',
+  },
+  {
+    id: 'who-can',
+    question: 'Who can become an agent?',
+    answer:
+      'Requirements vary by principal. Applicants may be assessed on ownership, location, operating history, financial capacity, documentation, personnel, security and suitability. Submitting an interest form does not guarantee approval or appointment.',
   },
   {
     id: 'transactions',
-    question: 'Which banking transactions are available?',
+    question: 'What services can banking agents provide?',
     answer:
-      'Only transactions authorised by the principal will be listed. Until that list is published, ask at the outlet or by phone before travelling.',
+      'Only services authorised by the participating principal. Those may include eligible deposits, withdrawals, transfers, bill or merchant payments, balance enquiries and other approved services. Nothing is listed as available at this outlet until the principal’s list is published.',
+  },
+  {
+    id: 'working-capital',
+    question: 'Does an agent need working capital?',
+    answer:
+      'Usually yes. Agents need enough cash and electronic float to complete customer transactions. The amount depends on expected activity, the service mix and the principal’s requirements.',
+  },
+  {
+    id: 'agent-income',
+    question: 'How do agents earn income?',
+    answer:
+      'Approved agents may receive commissions or other compensation under the commercial terms set by their principal. Income is not guaranteed and depends on those terms and on transaction activity.',
+  },
+  {
+    id: 'monitoring',
+    question: 'How are agents monitored?',
+    answer:
+      'Monitoring depends on the principal. It may include transaction review, outlet visits, documentation checks, liquidity monitoring, compliance reviews and performance assessment.',
+  },
+  {
+    id: 'genuine',
+    question: 'How do customers know whether an agent is genuine?',
+    answer:
+      'Confirm the agent through the official channels or approved-agent records of the relevant principal. Do not rely only on a sign, a verbal claim or this website until those records are published here.',
+  },
+  {
+    id: 'failed-tx',
+    question: 'What happens when a transaction fails?',
+    answer:
+      'Keep the transaction information you have and follow the complaint process of the relevant principal. Agents should escalate through the principal’s procedure and should not promise a resolution they cannot confirm.',
+  },
+  {
+    id: 'kyc',
+    question: 'Who is responsible for KYC and AML compliance?',
+    answer:
+      'The principal retains important compliance responsibilities and sets the procedures agents must follow, including KYC, customer due diligence and, where required, enhanced due diligence. Agents operate under that training, those procedures and the agency agreement.',
+  },
+  {
+    id: 'deposits',
+    question: 'Does Delivery on Demand hold customer deposits?',
+    answer:
+      'No. Unless a separate authorisation is obtained and disclosed, deposits and other regulated financial services belong to the participating principal, not to Delivery on Demand.',
   },
   {
     id: 'id',
     question: 'Which identification is required?',
     answer:
-      'Banking identification follows the principal’s rules and is checked at the outlet. Do not upload a Ghana Card or banking credentials through this website.',
+      'Identification follows the principal’s rules and is checked at the outlet. Do not upload a Ghana Card, PIN or banking credential through this website.',
   },
   {
     id: 'data',
     question: 'How is my personal data used?',
     answer:
-      'We use names, telephone numbers, addresses and parcel details to quote, collect, deliver and follow up. See the privacy notice for purpose, retention and how to request a correction.',
+      'We use names, telephone numbers, addresses and parcel or enquiry details to quote, deliver, or respond to an agency-banking enquiry. See the privacy notice for purpose, retention and how to request a correction.',
   },
 ];
 
-export const faqJsonLd = () => ({
+export const HOME_FAQ_IDS = ['areas', 'price', 'is-bank', 'principal', 'deposits', 'confirmation'];
+
+export const BANKING_FAQ_IDS = [
+  'what-agency',
+  'is-bank',
+  'principal',
+  'who-agent',
+  'who-can',
+  'transactions',
+  'working-capital',
+  'agent-income',
+  'monitoring',
+  'genuine',
+  'failed-tx',
+  'kyc',
+  'deposits',
+  'id',
+];
+
+export const faqJsonLd = (ids) => ({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: FAQS.map((item) => ({
+  mainEntity: FAQS.filter((item) => !ids || ids.includes(item.id)).map((item) => ({
     '@type': 'Question',
     name: item.question,
     acceptedAnswer: {

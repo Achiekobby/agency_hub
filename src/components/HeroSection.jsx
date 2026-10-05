@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { Link } from 'react-router';
 import {
   ArrowRight,
   Clock,
@@ -31,23 +32,23 @@ const quoteHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(
 const TRUST_ITEMS = [
   BUSINESS.address,
   `Open ${BUSINESS.hours}`,
-  'Quotation before confirmation',
-  'Receipts issued',
-  'Delivery confirmation available',
+  'Quotation before you book',
+  'Not a bank or EMI',
+  'Principal named when verified',
 ];
 
-const STEPS = [
+const PATHS = [
   {
-    title: 'Send quote details on WhatsApp',
-    body: 'Pickup area, delivery area, parcel size, and a preferred time.',
+    kicker: 'Parcels',
+    title: 'Pickup and delivery in Accra',
+    body: 'Send the route and parcel size on WhatsApp. We confirm the price, then collect or take a drop-off at the service point.',
+    rule: 'border-brand_orange',
   },
   {
-    title: 'Arrange pickup or drop off',
-    body: `We confirm the quotation, then collect from you or you drop off at our ${BUSINESS.area} service point.`,
-  },
-  {
-    title: 'Receive delivery confirmation',
-    body: 'You get confirmation when the parcel is delivered, with a receipt issued.',
+    kicker: 'Agency banking',
+    title: 'Networks beyond the branch',
+    body: 'Support for institutions and prospective agents: onboarding, liquidity, compliance and performance. The regulated service stays with the principal.',
+    rule: 'border-brand_teal',
   },
 ];
 
@@ -71,7 +72,7 @@ function HeroPhotograph() {
           <div
             className="relative aspect-[5/4] md:aspect-[4/5]"
             role="img"
-            aria-label="Service-point photograph coming soon: a staff member at the Accra counter receiving a parcel, late-afternoon light from the street."
+            aria-label="Illustration coming soon: one Accra counter handling a sealed parcel and an agency-banking transaction, with no bank logos."
           >
             <div className="absolute inset-0 bg-gradient-to-br from-brand_navy via-brand_navy-600 to-brand_teal-800" />
             <div className="absolute left-0 top-1/4 h-24 w-16 bg-brand_orange/80 md:h-32 md:w-20" />
@@ -82,7 +83,7 @@ function HeroPhotograph() {
         ) : (
           <img
             src={Images.heroServicePoint}
-            alt="Staff at the Accra service point receiving a parcel at the counter, with the street visible through the open doorway."
+            alt="One Accra service point: a sealed parcel handed across the counter, and a customer completing an agency-banking transaction beside it. No bank logos and no readable screen."
             width={1600}
             height={2000}
             className="aspect-[5/4] w-full object-cover object-[center_30%] md:aspect-[4/5]"
@@ -94,28 +95,16 @@ function HeroPhotograph() {
   );
 }
 
-function ProcessSteps() {
+function TwoPaths() {
   return (
-    <div className="mt-8">
-      <h2 className="text-xs font-semibold uppercase tracking-wider text-brand_teal">
-        How it works
-      </h2>
-      <ol className="mt-4 space-y-5">
-        {STEPS.map((step, index) => (
-          <li key={step.title} className="flex gap-4">
-            <span
-              className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand_orange text-sm font-bold text-white"
-              aria-hidden="true"
-            >
-              {index + 1}
-            </span>
-            <div>
-              <p className="font-semibold text-brand_navy">{step.title}</p>
-              <p className="mt-1 text-sm leading-relaxed text-slate_grey">{step.body}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
+    <div className="mt-8 grid gap-6 sm:grid-cols-2">
+      {PATHS.map((path) => (
+        <div key={path.kicker} className={`border-t-2 pt-4 ${path.rule}`}>
+          <p className="text-xs font-semibold uppercase tracking-wider text-brand_teal">{path.kicker}</p>
+          <h2 className="mt-2 text-base font-bold text-brand_navy">{path.title}</h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate_grey">{path.body}</p>
+        </div>
+      ))}
     </div>
   );
 }
@@ -134,28 +123,27 @@ const HeroSection = () => {
               {...fadeUp(reduceMotion, 0)}
               className="text-sm font-semibold uppercase tracking-wider text-brand_teal"
             >
-              Pickup & delivery
+              {BUSINESS.city} · parcels and agency banking
             </motion.p>
 
             <motion.h1
               {...fadeUp(reduceMotion, 0.08)}
               className="mt-3 text-4xl font-bold tracking-tight text-brand_navy sm:text-5xl lg:text-[3.15rem] lg:leading-[1.12]"
             >
-              Book parcel pickup and delivery in {BUSINESS.city}.
+              Parcel delivery, and financial services closer to the customer.
             </motion.h1>
 
             <motion.p
               {...fadeUp(reduceMotion, 0.16)}
               className="mt-5 max-w-xl text-lg leading-relaxed text-slate_grey"
             >
-              Get a clear quotation on WhatsApp, arrange pickup or drop off at our {BUSINESS.area}{' '}
-              service point, and receive confirmation when your parcel is delivered. International
-              shipping is arranged through approved carrier channels. Agency banking is named only
-              when it can be verified.
+              One {BUSINESS.area} service point for local pickup and delivery, and for agency-banking
+              support. Institutions and prospective agents work with us on the network. Customers
+              transact with the authorised principal. Delivery on Demand remains the operating partner.
             </motion.p>
 
             <motion.div {...fadeUp(reduceMotion, 0.22)}>
-              <ProcessSteps />
+              <TwoPaths />
             </motion.div>
 
             <motion.div {...fadeUp(reduceMotion, 0.3)} className="mt-8">
@@ -170,23 +158,32 @@ const HeroSection = () => {
                   Get a delivery quote
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
+                <Link
+                  to="/agency-banking"
+                  className={`${ctaBase} border-2 border-brand_navy bg-white text-brand_navy hover:bg-brand_cream`}
+                >
+                  Agency banking
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1">
+                <a
+                  href={`tel:${BUSINESS.phoneTel}`}
+                  className="inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm font-semibold text-brand_navy transition-colors duration-200 hover:text-brand_teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand_cyan"
+                >
+                  <Phone className="h-4 w-4 text-brand_teal" aria-hidden="true" />
+                  Call {BUSINESS.phoneDisplay}
+                </a>
                 <a
                   href={BUSINESS.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${ctaBase} border-2 border-brand_navy bg-white text-brand_navy hover:bg-brand_cream`}
+                  className="inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm font-semibold text-brand_navy transition-colors duration-200 hover:text-brand_teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand_cyan"
                 >
-                  <MapPin className="h-4 w-4" aria-hidden="true" />
-                  Get directions
+                  <MapPin className="h-4 w-4 text-brand_teal" aria-hidden="true" />
+                  Directions
                 </a>
               </div>
-              <a
-                href={`tel:${BUSINESS.phoneTel}`}
-                className="mt-4 inline-flex min-h-11 cursor-pointer items-center gap-2 text-sm font-semibold text-brand_navy transition-colors duration-200 hover:text-brand_teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand_cyan"
-              >
-                <Phone className="h-4 w-4 text-brand_teal" aria-hidden="true" />
-                Call: {BUSINESS.phoneDisplay}
-              </a>
             </motion.div>
           </div>
 

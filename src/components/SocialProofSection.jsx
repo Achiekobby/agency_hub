@@ -36,7 +36,7 @@ const SocialProofSection = () => (
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-slate_grey">
             <li>“Amazing and reliable company!” with no job attached.</li>
             <li>Invented star ratings or “10,000+ deliveries”.</li>
-            <li>Carrier or bank logos we are not authorised to display.</li>
+            <li>Carrier logos, or banks we have not been asked to name.</li>
           </ul>
         </article>
       </div>

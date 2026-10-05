@@ -22,7 +22,10 @@ const FinalCtaSection = () => (
           <MessageCircle className="h-4 w-4" aria-hidden="true" />
           Get a WhatsApp quote
         </a>
-        <a href={`tel:${SITE.phoneTel}`} className={`${CTA.secondary} border-white bg-[#003B5C] text-white hover:bg-white/10`}>
+        <a
+          href={`tel:${SITE.phoneTel}`}
+          className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-white/40 bg-transparent px-5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand_cyan"
+        >
           <Phone className="h-4 w-4" aria-hidden="true" />
           Call {SITE.phoneDisplay}
         </a>

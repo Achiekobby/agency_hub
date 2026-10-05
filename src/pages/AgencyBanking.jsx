@@ -3,13 +3,14 @@ import PageLayout from '../components/PageLayout';
 import Seo from '../components/Seo';
 import AgencyBankingHero from '../components/AgencyBankingHero';
 import AgencyBankingDetails from '../components/AgencyBankingDetails';
-import { SITE } from '../data/site';
+import { BANKING_FAQ_IDS, faqJsonLd } from '../data/site';
 
 const AgencyBanking = () => (
   <PageLayout>
     <Seo
-      title={`Agency banking in ${SITE.area}`}
-      description={`Outlet banking services in ${SITE.city}. Principal, agent number and authorised transactions are published only when they can be verified. We are not a bank.`}
+      title="Agency Banking Solutions Ghana | Delivery on Demand"
+      description="Build and manage stronger agency banking networks in Ghana with support for agent onboarding, liquidity, compliance, monitoring and performance. Delivery on Demand is not a bank."
+      jsonLd={faqJsonLd(BANKING_FAQ_IDS)}
     />
     <AgencyBankingHero />
     <AgencyBankingDetails />
